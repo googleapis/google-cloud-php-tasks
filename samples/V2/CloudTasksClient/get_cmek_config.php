@@ -22,36 +22,35 @@
 
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
-// [START cloudtasks_v2_generated_CloudTasks_GetTask_sync]
+// [START cloudtasks_v2_generated_CloudTasks_GetCmekConfig_sync]
 use Google\ApiCore\ApiException;
 use Google\Cloud\Tasks\V2\Client\CloudTasksClient;
-use Google\Cloud\Tasks\V2\GetTaskRequest;
-use Google\Cloud\Tasks\V2\Task;
+use Google\Cloud\Tasks\V2\CmekConfig;
+use Google\Cloud\Tasks\V2\GetCmekConfigRequest;
 
 /**
- * Gets a task.
+ * Gets the CMEK config.
  *
- * After a task is successfully executed or has exhausted its retry attempts,
- * the task is deleted. A `GetTask` request for a deleted task returns a
- * `NOT_FOUND` error.
+ * Gets the Customer Managed Encryption Key configured with the Cloud Tasks
+ * location. By default there is no kms_key configured.
  *
- * @param string $formattedName The task name. For example:
- *                              `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID/tasks/TASK_ID`
- *                              Please see {@see CloudTasksClient::taskName()} for help formatting this field.
+ * @param string $formattedName The config. For example:
+ *                              `projects/PROJECT_ID/locations/LOCATION_ID/CmekConfig`
+ *                              Please see {@see CloudTasksClient::cmekConfigName()} for help formatting this field.
  */
-function get_task_sample(string $formattedName): void
+function get_cmek_config_sample(string $formattedName): void
 {
     // Create a client.
     $cloudTasksClient = new CloudTasksClient();
 
     // Prepare the request message.
-    $request = (new GetTaskRequest())
+    $request = (new GetCmekConfigRequest())
         ->setName($formattedName);
 
     // Call the API and handle any network failures.
     try {
-        /** @var Task $response */
-        $response = $cloudTasksClient->getTask($request);
+        /** @var CmekConfig $response */
+        $response = $cloudTasksClient->getCmekConfig($request);
         printf('Response data: %s' . PHP_EOL, $response->serializeToJsonString());
     } catch (ApiException $ex) {
         printf('Call failed with message: %s' . PHP_EOL, $ex->getMessage());
@@ -69,8 +68,8 @@ function get_task_sample(string $formattedName): void
  */
 function callSample(): void
 {
-    $formattedName = CloudTasksClient::taskName('[PROJECT]', '[LOCATION]', '[QUEUE]', '[TASK]');
+    $formattedName = CloudTasksClient::cmekConfigName('[PROJECT]', '[LOCATION]');
 
-    get_task_sample($formattedName);
+    get_cmek_config_sample($formattedName);
 }
-// [END cloudtasks_v2_generated_CloudTasks_GetTask_sync]
+// [END cloudtasks_v2_generated_CloudTasks_GetCmekConfig_sync]
